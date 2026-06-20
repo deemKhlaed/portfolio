@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Deem — AI & Software Builder</title>
+<meta name="description" content="Portfolio of Deem — building AI systems (Saudi ANPR, WhatsApp agents) and full-stack tools (interactive 3D maps)." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0d0b;
+    --bg-2:#15140f;
+    --ink:#f3ead6;
+    --ink-dim:#b8ad94;
+    --muted:#7a7361;
+    --accent:#ecdcb4;
+    --line:rgba(243,234,214,.10);
+    --card:rgba(255,255,255,.025);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:"Outfit",system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .italic{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;color:var(--accent)}
+  .container{max-width:1200px;margin:0 auto;padding:0 28px}
+
+  /* Nav */
+  nav.top{position:fixed;top:22px;left:0;right:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
+  nav.top .pill{pointer-events:auto;display:flex;align-items:center;gap:6px;background:rgba(20,18,14,.85);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 24px}
+  nav.top .brand{font-weight:600;letter-spacing:-.02em;font-size:18px;margin-right:18px}
+  nav.top .brand span{color:var(--accent)}
+  nav.top a.link{padding:10px 16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);transition:color .2s}
+  nav.top a.link:hover{color:var(--ink)}
+  nav.top a.cta{background:var(--accent);color:#1a1710;padding:10px 18px;border-radius:999px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:transform .2s}
+  nav.top a.cta:hover{transform:translateY(-1px)}
+  @media (max-width:760px){nav.top .link{display:none}nav.top .pill{padding-left:18px}}
+
+  /* Hero */
+  header.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:160px 0 80px;overflow:hidden}
+  header.hero::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(60% 70% at 50% 30%, rgba(236,220,180,.10), transparent 60%),
+    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,.7), transparent 70%);
+    pointer-events:none}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1fr;gap:40px}
+  .eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(236,220,180,.12)}
+  h1.display{font-size:clamp(56px,11vw,180px);line-height:.95;letter-spacing:-.03em;font-weight:400}
+  h1.display .italic{display:block;padding-left:.4em}
+  .hero-sub{margin-top:36px;max-width:560px;color:var(--ink-dim);font-size:18px}
+  .hero-meta{margin-top:48px;display:flex;flex-wrap:wrap;gap:32px 56px;border-top:1px solid var(--line);padding-top:28px}
+  .hero-meta div{display:flex;flex-direction:column;gap:6px}
+  .hero-meta .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .hero-meta .v{font-size:15px;color:var(--ink)}
+
+  /* Sections */
+  section{padding:120px 0;border-top:1px solid var(--line);position:relative}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;flex-wrap:wrap}
+  .sec-tag{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+  .sec-title{font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:-.02em;font-weight:400;margin-top:18px;max-width:780px}
+  .sec-lede{max-width:380px;color:var(--ink-dim);font-size:16px}
+
+  /* Work */
+  .work-list{display:flex;flex-direction:column;gap:28px}
+  .work{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:28px;padding:36px;border:1px solid var(--line);border-radius:24px;background:var(--card);transition:border-color .3s, transform .3s;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+  .work:hover{border-color:rgba(236,220,180,.35);transform:translateY(-2px)}
+  .work .num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:32px;color:var(--accent)}
+  .work h3{font-size:clamp(28px,3.4vw,42px);line-height:1.05;letter-spacing:-.02em;font-weight:400;margin-bottom:8px}
+  .work .stack{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  .work .stack span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim)}
+  .work .open{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+  .work .open::after{content:"→";transition:transform .3s}
+  .work:hover .open::after{transform:translateX(4px)}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;padding:60px 24px;overflow-y:auto}
+  .modal.open{display:flex}
+  .modal-bg{position:fixed;inset:0;background:rgba(5,5,4,.78);backdrop-filter:blur(8px)}
+  .modal-card{position:relative;max-width:980px;width:100%;background:linear-gradient(180deg,#16140f,#0e0d0b);border:1px solid var(--line);border-radius:28px;padding:48px;animation:pop .35s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
+  .modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+  .modal-close:hover{border-color:var(--accent)}
+  .modal-card .num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:28px;color:var(--accent);margin-bottom:8px}
+  .modal-card h3{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-.02em;font-weight:400;margin-bottom:14px}
+  .modal-card .lede{color:var(--ink-dim);max-width:680px;margin-bottom:18px}
+  .modal-card .stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
+  .modal-card .stack span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim)}
+  .psbr{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+  .psbr .block{border-top:1px solid var(--line);padding-top:18px}
+  .psbr .label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  .psbr p{color:var(--ink-dim);font-size:15px;line-height:1.6}
+  .psbr .results{color:var(--ink)}
+  @media (max-width:880px){
+    .work{grid-template-columns:1fr;padding:28px}
+    .work .num{font-size:24px}
+    .work .open{margin-top:8px}
+    .modal-card{padding:32px 24px}
+    .psbr{grid-template-columns:1fr}
+  }
+
+  /* Posters */
+  .poster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+  .poster{aspect-ratio:3/4;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,#1a1813,#0e0d0b);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;transition:transform .4s, border-color .3s}
+  .poster:hover{transform:translateY(-4px);border-color:rgba(236,220,180,.4)}
+  .poster.placeholder{opacity:.55}
+  .poster::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 30% 20%,rgba(236,220,180,.12),transparent 60%);pointer-events:none}
+  .poster .tag{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;position:relative}
+  .poster h4{font-size:24px;line-height:1.1;letter-spacing:-.01em;font-weight:400;margin-bottom:14px;position:relative}
+  .poster .view{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);position:relative;display:inline-flex;align-items:center;gap:8px}
+  .poster .view::after{content:"→"}
+
+  /* Skills */
+  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .skill-col h5{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;color:var(--accent);font-size:24px;margin-bottom:20px}
+  .skill-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .skill-col li{font-size:15px;color:var(--ink-dim);padding-bottom:12px;border-bottom:1px solid var(--line)}
+  @media (max-width:780px){.skills{grid-template-columns:1fr}}
+
+  /* Footer */
+  footer{padding:80px 0 40px;border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
+  .foot .big{font-size:clamp(48px,8vw,112px);line-height:.95;letter-spacing:-.03em;font-weight:400}
+  .foot .meta{color:var(--muted);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .foot a.mail{color:var(--accent);font-size:18px;border-bottom:1px solid rgba(236,220,180,.3);padding-bottom:4px}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="pill">
+    <div class="brand">deem<span>.</span></div>
+    <a class="link" href="#work">Work</a>
+    <a class="link" href="#posters">Posters</a>
+    <a class="link" href="#skills">Skills</a>
+    <a class="cta" href="#contact">Let's Talk</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="eyebrow"><span class="dot"></span> Hi, I'm Deem</div>
+    <h1 class="display">I build things that <span class="italic">work .</span></h1>
+    <p class="hero-sub">AI Engineer focused on computer vision and intelligent automation.</p>
+    <div class="hero-meta">
+      <div><span class="k">Focus</span><span class="v">AI / Computer Vision / Full-Stack</span></div>
+      <div><span class="k">Cert</span><span class="v">Azure AI</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="work">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-tag">— Selected Work</div>
+        <h2 class="sec-title">Selected <span class="italic">work</span>.</h2>
+      </div>
+      <p class="sec-lede">Projects I've built across AI, computer vision, and full-stack development.</p>
+    </div>
+
+    <div class="work-list">
+
+      <button class="work reveal" data-project="p2">
+        <div class="num">01</div>
+        <div>
+          <h3>Saudi ANPR</h3>
+          <p style="color:var(--ink-dim);max-width:680px">A lightweight Saudi license plate recognition system built for edge deployment using a custom YOLO detector and fine-tuned OCR model.</p>
+          <div class="stack"><span>YOLO</span><span>FastPlateOCR</span><span>Raspberry Pi</span><span>Edge Deployment</span></div>
+        </div>
+        <span class="open">View case</span>
+      </button>
+
+      <button class="work reveal" data-project="p3">
+        <div class="num">02</div>
+        <div>
+          <h3>WhatsApp AI Agents</h3>
+          <p style="color:var(--ink-dim);max-width:680px">Case study coming soon.</p>
+          <div class="stack"><span>Automation</span><span>RAG</span><span>OpenAI</span><span>Vector Embeddings</span></div>
+        </div>
+        <span class="open">View case</span>
+      </button>
+
+      <button class="work reveal" data-project="p1">
+        <div class="num">03</div>
+        <div>
+          <h3>Interactive Indoor Map</h3>
+          <p style="color:var(--ink-dim);max-width:680px">Case study coming soon.</p>
+          <div class="stack"><span>Node.js</span><span>Three.js</span><span>Firebase</span></div>
+        </div>
+        <span class="open">View case</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" data-close aria-label="Close">×</button>
+    <div class="num" id="m-num"></div>
+    <h3 id="modal-title"></h3>
+    <p class="lede" id="m-lede"></p>
+    <div class="stack" id="m-stack"></div>
+    <div class="psbr">
+      <div class="block"><div class="label">Problem</div><p id="m-problem"></p></div>
+      <div class="block"><div class="label">Solution</div><p id="m-solution"></p></div>
+      <div class="block"><div class="label">Benefits</div><p id="m-benefits"></p></div>
+      <div class="block"><div class="label">Results</div><p class="results" id="m-results"></p></div>
+    </div>
+  </div>
+</div>
+
+<section id="posters">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-tag">— Posters</div>
+        <h2 class="sec-title">Research, <span class="italic">on paper</span>.</h2>
+      </div>
+      <p class="sec-lede">Selected academic posters. Click through for the full PDF.</p>
+    </div>
+    <div class="poster-grid">
+      <a class="poster reveal" href="assets/fyp-poster.pdf" target="_blank" rel="noopener">
+        <div class="tag">FYP · 2026</div>
+        <h4>Lightweight AI Model for Plate Recognition — YOLO + OCR</h4>
+        <span class="view">View full poster (PDF)</span>
+      </a>
+      <div class="poster placeholder reveal">
+        <div class="tag">Coming Soon</div>
+        <h4>Next poster</h4>
+        <span class="view" style="opacity:.6">Reserved</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="sec-head">
+      <div>
+        <div class="sec-tag">— Skills</div>
+        <h2 class="sec-title">What I <span class="italic">work with</span>.</h2>
+      </div>
+    </div>
+    <div class="skills">
+      <div class="skill-col reveal">
+        <h5>AI & ML</h5>
+        <ul>
+          <li>RAG Architecture</li>
+          <li>YOLO Object Detection</li>
+          <li>OCR Fine-tuning</li>
+          <li>Image Segmentation</li>
+          <li>Transfer Learning</li>
+          <li>Automation</li>
+        </ul>
+      </div>
+      <div class="skill-col reveal">
+        <h5>Development</h5>
+        <ul>
+          <li>Python</li>
+          <li>Django</li>
+          <li>Node.js</li>
+          <li>Three.js</li>
+        </ul>
+      </div>
+      <div class="skill-col reveal">
+        <h5>Cloud & Tools</h5>
+        <ul>
+          <li>Azure AI (Certified)</li>
+          <li>Vector Embeddings</li>
+          <li>Git</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container foot">
+    <div>
+      <div class="sec-tag" style="margin-bottom:18px">— Let's Talk</div>
+      <div class="big">Got a <span class="italic">problem</span><br/>worth solving?</div>
+      <a class="mail" href="mailto:deemkhaled33@gmail.com" style="margin-top:28px;display:inline-block">deemkhaled33@gmail.com</a>
+    </div>
+    <div class="meta">© <span id="y"></span> Deem · Built from scratch</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+  const io = new IntersectionObserver((es)=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const projects = {
+    p1: {
+      num:'03', title:'Interactive Indoor Map',
+      lede:'A live, searchable 3D map for my college that replaces paper signage with an event-driven layer.',
+      stack:['Node.js','Three.js','Firebase'],
+      problem:'Universities still rely on paper notices for room changes and exam relocations — easy to miss, no way to search by activity.',
+      solution:'A live 3D indoor map with an event layer; pin updates go live instantly, searchable by activity name.',
+      benefits:'No more hunting for signs or memorizing rooms. Less wall clutter. Updates ship in seconds.',
+      results:'Live and deployed at college. MVP shipped — access control & UI refresh next.'
+    },
+    p2: {
+      num:'01', title:'Saudi ANPR',
+      lede:'A lightweight Saudi license plate recognition system built for edge deployment using a custom YOLO detector and fine-tuned OCR model.',
+      stack:['YOLO','FastPlateOCR','Raspberry Pi','Edge Deployment'],
+      problem:'Edge devices like a Raspberry Pi have no GPU and limited compute — but accurate plate detection and recognition still has to run on them. Most detection and OCR models are too heavy for hardware like this.',
+      solution:'A lightweight two-stage pipeline — YOLO-based plate detection/segmentation and a fine-tuned FastPlateOCR model for dual-script Arabic/Latin recognition — built and optimized to run directly on a Raspberry Pi 4, with results synced to Edge Deployment.',
+      benefits:'Runs on affordable, lightweight edge hardware instead of requiring a GPU or dedicated server. Built specifically for Saudi plates rather than relying on generic ANPR models that don\u2019t handle Arabic script.',
+      results:'95% character / 84% full-plate OCR accuracy. Detection P/R above 95%. Labeling pipeline scaled 500 → 4,000+ images. Demo link coming soon.'
+    },
+    p3: {
+      num:'02', title:'WhatsApp AI Agents',
+      lede:'Case study coming soon.',
+      stack:['Automation','RAG','OpenAI','Vector Embeddings'],
+      problem:"Repetitive inbound queries don't scale manually, and most chatbots aren't grounded in the business's actual data.",
+      solution:'Workflow automation + RAG pipelines integrated into WhatsApp — one for real estate listings, one for customer support.',
+      benefits:'No new app to learn. RAG grounding pulls from listing and company-specific data instead of generic guesses. Architecture reused across two domains.',
+      results:'Real estate agent shipped during Qassim Tech internship; customer-support agent extended the same approach.'
+    }
+  };
+
+  const modal = document.getElementById('modal');
+  function openProject(id){
+    const p = projects[id]; if(!p) return;
+    document.getElementById('m-num').textContent = p.num;
+    document.getElementById('modal-title').textContent = p.title;
+    document.getElementById('m-lede').textContent = p.lede;
+    document.getElementById('m-stack').innerHTML = p.stack.map(s=>`<span>${s}</span>`).join('');
+    document.getElementById('m-problem').textContent = p.problem;
+    document.getElementById('m-solution').textContent = p.solution;
+    document.getElementById('m-benefits').textContent = p.benefits;
+    document.getElementById('m-results').textContent = p.results;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  document.querySelectorAll('[data-project]').forEach(btn=>{
+    btn.addEventListener('click',()=>openProject(btn.dataset.project));
+  });
+  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
