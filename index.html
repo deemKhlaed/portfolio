@@ -1,351 +1,1615 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Deem — AI & Software Builder</title>
-<meta name="description" content="Portfolio of Deem — building AI systems (Saudi ANPR, WhatsApp agents) and full-stack tools (interactive 3D maps)." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0e0d0b;
-    --bg-2:#15140f;
-    --ink:#f3ead6;
-    --ink-dim:#b8ad94;
-    --muted:#7a7361;
-    --accent:#ecdcb4;
-    --line:rgba(243,234,214,.10);
-    --card:rgba(255,255,255,.025);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--ink);font-family:"Outfit",system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.5}
-  a{color:inherit;text-decoration:none}
-  .italic{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;color:var(--accent)}
-  .container{max-width:1200px;margin:0 auto;padding:0 28px}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <title>Deem AI & Software Builder</title>
+    <meta
+      name="description"
+      content="Portfolio of Deem &mdash; AI engineer building computer vision systems (Saudi ANPR), RAG-grounded WhatsApp agents, and self-supervised lighting-estimation research (Luma)."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --grid: rgba(15, 22, 38, 0.035);
+        --ink: #0f1626;
+        --ink-2: #39435c;
+        --muted: #6a7488;
+        --line: #e6eaf1;
+        --soft: #f3f6fa;
+        --purple: #1d4ed8;
+        --purple-2: #3b82f6;
+        --lav: #e3ecfd;
+        --lav-2: #d6e3fc;
+        --pink: #fdeef3;
+        --ink-dark: #0f1729;
+        --shadow:
+          0 1px 2px rgba(15, 22, 38, 0.04),
+          0 16px 40px -20px rgba(15, 22, 38, 0.18);
+        --r: 26px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        background-image:
+          linear-gradient(var(--grid) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+        background-size: 132px 132px;
+        color: var(--ink);
+        font-family:
+          "Outfit",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        font-weight: 400;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
-  /* Nav */
-  nav.top{position:fixed;top:22px;left:0;right:0;z-index:50;display:flex;justify-content:center;pointer-events:none}
-  nav.top .pill{pointer-events:auto;display:flex;align-items:center;gap:6px;background:rgba(20,18,14,.85);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 24px}
-  nav.top .brand{font-weight:600;letter-spacing:-.02em;font-size:18px;margin-right:18px}
-  nav.top .brand span{color:var(--accent)}
-  nav.top a.link{padding:10px 16px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);transition:color .2s}
-  nav.top a.link:hover{color:var(--ink)}
-  nav.top a.cta{background:var(--accent);color:#1a1710;padding:10px 18px;border-radius:999px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:transform .2s}
-  nav.top a.cta:hover{transform:translateY(-1px)}
-  @media (max-width:760px){nav.top .link{display:none}nav.top .pill{padding-left:18px}}
+      /* ---------- Nav ---------- */
+      nav.top {
+        position: fixed;
+        top: calc(18px + env(safe-area-inset-top, 0px));
+        left: 0;
+        right: 0;
+        z-index: 60;
+        display: flex;
+        justify-content: center;
+        pointer-events: none;
+        padding: 0 16px;
+      }
+      .nav-inner {
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 1240px;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        font-size: 19px;
+        letter-spacing: -0.02em;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(14px);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 20px;
+        box-shadow: var(--shadow);
+      }
+      .brand .mark {
+        width: 26px;
+        height: 26px;
+        border-radius: 9px;
+        background: linear-gradient(140deg, var(--purple-2), var(--purple));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .navlinks {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(14px);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px;
+        box-shadow: var(--shadow);
+      }
+      .navlinks a {
+        padding: 9px 18px;
+        font-size: 14px;
+        color: var(--ink-2);
+        border-radius: 999px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .navlinks a:hover {
+        background: var(--soft);
+        color: var(--ink);
+      }
+      .navlinks a.active {
+        color: var(--purple);
+        font-weight: 500;
+      }
+      .nav-cta {
+        background: var(--purple);
+        color: #fff;
+        padding: 13px 24px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 10px 24px -10px rgba(29, 78, 216, 0.7);
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+      .nav-cta:hover {
+        transform: translateY(-1px);
+        background: #1e40af;
+      }
+      @media (max-width: 980px) {
+        .navlinks {
+          display: none;
+        }
+      }
+      @media (max-width: 520px) {
+        .brand {
+          font-size: 17px;
+          padding: 9px 16px;
+        }
+        .nav-cta {
+          padding: 11px 18px;
+          font-size: 13px;
+        }
+      }
 
-  /* Hero */
-  header.hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:160px 0 80px;overflow:hidden}
-  header.hero::before{content:"";position:absolute;inset:0;background:
-    radial-gradient(60% 70% at 50% 30%, rgba(236,220,180,.10), transparent 60%),
-    radial-gradient(120% 80% at 50% 0%, rgba(0,0,0,.7), transparent 70%);
-    pointer-events:none}
-  .hero-grid{position:relative;display:grid;grid-template-columns:1fr;gap:40px}
-  .eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;display:flex;align-items:center;gap:12px}
-  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(236,220,180,.12)}
-  h1.display{font-size:clamp(56px,11vw,180px);line-height:.95;letter-spacing:-.03em;font-weight:400}
-  h1.display .italic{display:block;padding-left:.4em}
-  .hero-sub{margin-top:36px;max-width:560px;color:var(--ink-dim);font-size:18px}
-  .hero-meta{margin-top:48px;display:flex;flex-wrap:wrap;gap:32px 56px;border-top:1px solid var(--line);padding-top:28px}
-  .hero-meta div{display:flex;flex-direction:column;gap:6px}
-  .hero-meta .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-  .hero-meta .v{font-size:15px;color:var(--ink)}
+      /* ---------- Hero ---------- */
+      header.hero {
+        padding: 132px 0 40px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.62fr 1fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+      .hero-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--r);
+        background: linear-gradient(
+          165deg,
+          #eff4ff 0%,
+          #e2ecfd 55%,
+          #d4e2fc 100%
+        );
+        padding: 64px 56px;
+        min-height: 560px;
+        display: flex;
+        flex-direction: column;
+      }
+      .hero-card .hero-copy {
+        position: relative;
+        z-index: 2;
+        max-width: 620px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 13px;
+        color: var(--purple);
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(29, 78, 216, 0.14);
+        padding: 7px 15px;
+        border-radius: 999px;
+        margin-bottom: 26px;
+      }
+      .eyebrow .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--purple);
+        box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
+      }
+      h1.display {
+        font-size: clamp(38px, 5.2vw, 68px);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+        color: #122145;
+      }
+      h1.display em {
+        font-style: normal;
+        color: var(--purple);
+        display: block;
+      }
+      .hero-sub {
+        margin-top: 22px;
+        max-width: 480px;
+        color: #3d4a6b;
+        font-size: 17px;
+      }
+      .hero-actions {
+        margin-top: 36px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        border: 1.5px solid var(--purple);
+        color: var(--purple);
+        font-size: 16px;
+        font-weight: 500;
+        padding: 15px 30px;
+        border-radius: 999px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .btn-outline:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px -14px rgba(29, 78, 216, 0.6);
+      }
+      .btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: #3d4a6b;
+        font-size: 16px;
+        padding: 15px 22px;
+        border-radius: 999px;
+        border: 1.5px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .btn-ghost:hover {
+        border-color: rgba(29, 78, 216, 0.25);
+      }
+      .hero-logos {
+        position: relative;
+        z-index: 2;
+        margin-top: auto;
+        padding-top: 56px;
+        max-width: 58%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 28px;
+        align-items: center;
+      }
+      .hero-logos span {
+        font-size: 14px;
+        font-weight: 500;
+        color: #64749c;
+        letter-spacing: 0.01em;
+      }
+      .hero-art {
+        position: absolute;
+        right: -20px;
+        bottom: 0;
+        width: min(420px, 46%);
+        opacity: 0.95;
+        pointer-events: none;
+        z-index: 1;
+      }
+      @media (max-width: 1040px) {
+        .hero-art {
+          opacity: 0.4;
+          width: min(340px, 42%);
+        }
+        .hero-logos {
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 640px) {
+        .hero-art {
+          opacity: 0.22;
+        }
+      }
 
-  /* Sections */
-  section{padding:120px 0;border-top:1px solid var(--line);position:relative}
-  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:64px;flex-wrap:wrap}
-  .sec-tag{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
-  .sec-title{font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:-.02em;font-weight:400;margin-top:18px;max-width:780px}
-  .sec-lede{max-width:380px;color:var(--ink-dim);font-size:16px}
+      .hero-side {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .stat-card {
+        background: var(--soft);
+        border-radius: var(--r);
+        padding: 34px 30px;
+        text-align: center;
+      }
+      .stat-card .n {
+        font-size: clamp(34px, 4vw, 46px);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .stat-card .c {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14.5px;
+      }
+      .side-card {
+        border-radius: var(--r);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 200px;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: transform 0.25s;
+      }
+      .side-card:hover {
+        transform: translateY(-3px);
+      }
+      .side-card.dark {
+        background: var(--ink-dark);
+        color: #fff;
+      }
+      .side-card.dark p {
+        color: rgba(255, 255, 255, 0.62);
+      }
+      .side-card.soft {
+        background: var(--pink);
+      }
+      .side-card.soft p {
+        color: #8a6472;
+      }
+      .side-card h3 {
+        font-size: 21px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .side-card .titlerow {
+        margin-bottom: 8px;
+      }
+      .side-card p {
+        font-size: 14.5px;
+        line-height: 1.5;
+      }
+      .side-foot {
+        margin-top: auto;
+        padding-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .mini-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 13.5px;
+        font-weight: 500;
+        padding: 9px 16px;
+        border-radius: 999px;
+      }
+      .side-card.soft .mini-btn {
+        background: var(--ink-dark);
+        color: #fff;
+      }
+      .side-tag {
+        font-size: 12.5px;
+        letter-spacing: 0.04em;
+        opacity: 0.7;
+      }
+      @media (max-width: 1040px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-card {
+          padding: 44px 28px;
+          min-height: auto;
+        }
+        .hero-side {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .stat-card,
+        .side-card {
+          flex: 1 1 260px;
+        }
+      }
+      @media (max-width: 640px) {
+        header.hero {
+          padding-top: 110px;
+        }
+        .hero-card {
+          padding: 36px 22px;
+        }
+        .hero-logos {
+          padding-top: 34px;
+        }
+      }
 
-  /* Work */
-  .work-list{display:flex;flex-direction:column;gap:28px}
-  .work{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:28px;padding:36px;border:1px solid var(--line);border-radius:24px;background:var(--card);transition:border-color .3s, transform .3s;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
-  .work:hover{border-color:rgba(236,220,180,.35);transform:translateY(-2px)}
-  .work .num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:32px;color:var(--accent)}
-  .work h3{font-size:clamp(28px,3.4vw,42px);line-height:1.05;letter-spacing:-.02em;font-weight:400;margin-bottom:8px}
-  .work .stack{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
-  .work .stack span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim)}
-  .work .open{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
-  .work .open::after{content:"→";transition:transform .3s}
-  .work:hover .open::after{transform:translateX(4px)}
+      /* ---------- Sections ---------- */
+      section {
+        padding: 74px 0;
+      }
+      .sec-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 32px;
+        margin-bottom: 34px;
+        flex-wrap: wrap;
+      }
+      .sec-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--purple);
+        font-weight: 500;
+      }
+      .sec-tag::before {
+        content: "";
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--purple);
+      }
+      .sec-title {
+        font-size: clamp(30px, 4vw, 46px);
+        line-height: 1.12;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+        margin-top: 14px;
+        max-width: 640px;
+      }
+      .sec-lede {
+        max-width: 380px;
+        color: var(--muted);
+        font-size: 16px;
+      }
 
-  /* Modal */
-  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:flex-start;justify-content:center;padding:60px 24px;overflow-y:auto}
-  .modal.open{display:flex}
-  .modal-bg{position:fixed;inset:0;background:rgba(5,5,4,.78);backdrop-filter:blur(8px)}
-  .modal-card{position:relative;max-width:980px;width:100%;background:linear-gradient(180deg,#16140f,#0e0d0b);border:1px solid var(--line);border-radius:28px;padding:48px;animation:pop .35s ease}
-  @keyframes pop{from{opacity:0;transform:translateY(20px) scale(.98)}to{opacity:1;transform:none}}
-  .modal-close{position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
-  .modal-close:hover{border-color:var(--accent)}
-  .modal-card .num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:28px;color:var(--accent);margin-bottom:8px}
-  .modal-card h3{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-.02em;font-weight:400;margin-bottom:14px}
-  .modal-card .lede{color:var(--ink-dim);max-width:680px;margin-bottom:18px}
-  .modal-card .stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px}
-  .modal-card .stack span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-dim)}
-  .psbr{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
-  .psbr .block{border-top:1px solid var(--line);padding-top:18px}
-  .psbr .label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-  .psbr p{color:var(--ink-dim);font-size:15px;line-height:1.6}
-  .psbr .results{color:var(--ink)}
-  @media (max-width:880px){
-    .work{grid-template-columns:1fr;padding:28px}
-    .work .num{font-size:24px}
-    .work .open{margin-top:8px}
-    .modal-card{padding:32px 24px}
-    .psbr{grid-template-columns:1fr}
-  }
+      /* ---------- Work ---------- */
+      .work-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .work {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 30px;
+        padding: 32px 34px;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        background: #fff;
+        transition:
+          border-color 0.25s,
+          transform 0.25s,
+          box-shadow 0.25s;
+        cursor: pointer;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+        width: 100%;
+      }
+      .work:hover {
+        border-color: rgba(29, 78, 216, 0.35);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
+      }
+      .work .num {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: var(--lav);
+        color: var(--purple);
+        display: grid;
+        place-items: center;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .work h3 {
+        font-size: clamp(22px, 2.4vw, 28px);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+      }
+      .work p {
+        color: var(--muted);
+        max-width: 700px;
+        font-size: 15.5px;
+      }
+      .titlerow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: #047857;
+        background: #e7f7f0;
+        padding: 5px 12px;
+        border-radius: 999px;
+      }
+      .badge.alt {
+        color: var(--purple);
+        background: var(--lav);
+      }
+      .badge.alt::before {
+        background: var(--purple-2);
+        box-shadow: none;
+      }
+      .badge::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
+      }
+      .stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      .stack span {
+        font-size: 12.5px;
+        padding: 6px 13px;
+        background: var(--soft);
+        border-radius: 999px;
+        color: var(--ink-2);
+      }
+      .work .open {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--purple);
+        white-space: nowrap;
+        background: var(--lav);
+        padding: 12px 20px;
+        border-radius: 999px;
+        transition: background 0.25s;
+      }
+      .work .open::after {
+        content: "&rarr;";
+        transition: transform 0.25s;
+      }
+      .work:hover .open {
+        background: var(--purple);
+        color: #fff;
+      }
+      .work:hover .open::after {
+        transform: translateX(3px);
+      }
+      @media (max-width: 860px) {
+        .work {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          padding: 26px 22px;
+        }
+        .work .open {
+          justify-self: start;
+        }
+      }
 
-  /* Posters */
-  .poster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-  .poster{aspect-ratio:3/4;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,#1a1813,#0e0d0b);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;transition:transform .4s, border-color .3s}
-  .poster:hover{transform:translateY(-4px);border-color:rgba(236,220,180,.4)}
-  .poster.placeholder{opacity:.55}
-  .poster::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 30% 20%,rgba(236,220,180,.12),transparent 60%);pointer-events:none}
-  .poster .tag{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;position:relative}
-  .poster h4{font-size:24px;line-height:1.1;letter-spacing:-.01em;font-weight:400;margin-bottom:14px;position:relative}
-  .poster .view{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim);position:relative;display:inline-flex;align-items:center;gap:8px}
-  .poster .view::after{content:"→"}
+      /* ---------- Posters ---------- */
+      .poster-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 16px;
+        align-items: start;
+      }
+      .poster {
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        background: #fff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.3s,
+          border-color 0.25s,
+          box-shadow 0.25s;
+      }
+      .poster:hover {
+        transform: translateY(-4px);
+        border-color: rgba(29, 78, 216, 0.32);
+        box-shadow: var(--shadow);
+      }
+      .poster .shot {
+        position: relative;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        background: linear-gradient(170deg, var(--lav), #f7f5fe);
+      }
+      .poster .shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+        transition: transform 0.5s;
+      }
+      .poster:hover .shot img {
+        transform: scale(1.03);
+      }
+      .poster .body {
+        padding: 24px 26px 26px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .poster .tag {
+        display: inline-flex;
+        align-self: flex-start;
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--purple);
+        background: var(--lav);
+        padding: 6px 13px;
+        border-radius: 999px;
+        margin-bottom: 14px;
+      }
+      .poster h4 {
+        font-size: 19px;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+      .poster .view {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--purple);
+      }
+      .poster .view::after {
+        content: "&rarr;";
+        transition: transform 0.25s;
+      }
+      .poster:hover .view::after {
+        transform: translateX(3px);
+      }
+      .poster.placeholder {
+        opacity: 0.7;
+      }
+      .poster.placeholder .shot {
+        background: linear-gradient(170deg, var(--soft), #fff);
+        display: grid;
+        place-items: center;
+      }
+      .poster.placeholder .shot::after {
+        content: "";
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        border: 2px dashed var(--line);
+      }
+      .poster.placeholder .tag {
+        background: var(--soft);
+        color: var(--muted);
+      }
+      .poster.placeholder .view {
+        color: var(--muted);
+      }
 
-  /* Skills */
-  .skills{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-  .skill-col h5{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:500;color:var(--accent);font-size:24px;margin-bottom:20px}
-  .skill-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-  .skill-col li{font-size:15px;color:var(--ink-dim);padding-bottom:12px;border-bottom:1px solid var(--line)}
-  @media (max-width:780px){.skills{grid-template-columns:1fr}}
+      /* ---------- Skills ---------- */
+      .skills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        align-items: start;
+      }
+      .skill-col {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        padding: 32px 30px;
+      }
+      .skill-col h5 {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .skill-col h5::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--purple);
+      }
+      .skill-col ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+      }
+      .skill-col li {
+        font-size: 15.5px;
+        color: var(--ink-2);
+        padding-bottom: 11px;
+        border-bottom: 1px solid var(--line);
+      }
+      .skill-col li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      @media (max-width: 860px) {
+        .skills {
+          grid-template-columns: 1fr;
+        }
+      }
 
-  /* Footer */
-  footer{padding:80px 0 40px;border-top:1px solid var(--line)}
-  .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap}
-  .foot .big{font-size:clamp(48px,8vw,112px);line-height:.95;letter-spacing:-.03em;font-weight:400}
-  .foot .meta{color:var(--muted);font-size:13px;letter-spacing:.18em;text-transform:uppercase}
-  .foot a.mail{color:var(--accent);font-size:18px;border-bottom:1px solid rgba(236,220,180,.3);padding-bottom:4px}
+      /* ---------- Contact ---------- */
+      .contact-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--r);
+        background: linear-gradient(
+          150deg,
+          #0e2350 0%,
+          #14418c 48%,
+          #1d4ed8 100%
+        );
+        color: #fff;
+        padding: 72px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+      .contact-card::after {
+        content: "";
+        position: absolute;
+        right: -90px;
+        top: -90px;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.16),
+          transparent 65%
+        );
+      }
+      .contact-card .big {
+        position: relative;
+        font-size: clamp(32px, 4.6vw, 56px);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+      }
+      .contact-card .lede {
+        position: relative;
+        margin-top: 18px;
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 440px;
+        font-size: 16.5px;
+      }
+      .contact-card .actions {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .btn-white {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #fff;
+        color: var(--purple);
+        font-size: 16px;
+        font-weight: 500;
+        padding: 16px 30px;
+        border-radius: 999px;
+        transition: transform 0.2s;
+      }
+      .btn-white:hover {
+        transform: translateY(-2px);
+      }
+      .btn-line {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        color: #fff;
+        font-size: 16px;
+        padding: 16px 28px;
+        border-radius: 999px;
+        transition: background 0.2s;
+      }
+      .btn-line:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      @media (max-width: 640px) {
+        .contact-card {
+          padding: 44px 26px;
+        }
+      }
+      footer .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 32px 0 44px;
+        color: var(--muted);
+        font-size: 14px;
+      }
 
-  /* Reveal */
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease, transform .9s ease}
-  .reveal.in{opacity:1;transform:none}
-</style>
-</head>
-<body>
+      /* ---------- Modal ---------- */
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: none;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 44px 18px;
+        overflow-y: auto;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .modal-bg {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 22, 38, 0.42);
+        backdrop-filter: blur(6px);
+      }
+      .modal-card {
+        position: relative;
+        max-width: 920px;
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 48px;
+        box-shadow: 0 40px 90px -30px rgba(15, 22, 38, 0.45);
+        animation: pop 0.3s ease;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: translateY(16px) scale(0.985);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+      .modal-close:hover {
+        background: var(--soft);
+      }
+      .modal-card .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: var(--lav);
+        color: var(--purple);
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+      .modal-card h3 {
+        font-size: clamp(26px, 3.6vw, 40px);
+        line-height: 1.12;
+        letter-spacing: -0.03em;
+        font-weight: 600;
+        margin-bottom: 12px;
+      }
+      .modal-card .lede {
+        color: var(--muted);
+        max-width: 680px;
+        margin-bottom: 18px;
+        font-size: 16.5px;
+      }
+      .modal-card .stack {
+        margin-bottom: 24px;
+      }
+      .modal-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 34px;
+      }
+      .modal-links:empty {
+        margin-bottom: 10px;
+      }
+      .modal-links a {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--purple);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 13px 24px;
+        border-radius: 999px;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .modal-links a:hover {
+        background: #1e40af;
+        transform: translateY(-1px);
+      }
+      .psbr {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .psbr .block {
+        background: var(--soft);
+        border-radius: 20px;
+        padding: 24px;
+      }
+      .psbr .block.accent {
+        background: var(--lav);
+      }
+      .psbr .block.wide {
+        grid-column: 1 / -1;
+      }
+      .psbr .block.media {
+        padding: 16px;
+      }
+      .psbr .block.media .label {
+        padding: 6px 8px 14px;
+      }
+      .psbr .block.media figure {
+        display: grid;
+        grid-template-columns: minmax(0, 380px) 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .psbr figure {
+        margin: 0;
+      }
+      .psbr figure img {
+        display: block;
+        width: 100%;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      .psbr figcaption {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 10px 8px 4px;
+      }
+      .psbr .legend {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 0 8px;
+      }
+      .psbr .legend div {
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+      .psbr .legend b {
+        display: block;
+        color: var(--purple);
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+      @media (max-width: 760px) {
+        .psbr .block.media figure {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .psbr .legend {
+          padding: 0;
+        }
+      }
+      .psbr .label {
+        font-size: 12.5px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--purple);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .psbr p {
+        color: var(--ink-2);
+        font-size: 15px;
+        line-height: 1.62;
+      }
+      @media (max-width: 760px) {
+        .modal-card {
+          padding: 32px 22px;
+        }
+        .psbr {
+          grid-template-columns: 1fr;
+        }
+      }
 
-<nav class="top">
-  <div class="pill">
-    <div class="brand">deem<span>.</span></div>
-    <a class="link" href="#work">Work</a>
-    <a class="link" href="#posters">Posters</a>
-    <a class="link" href="#skills">Skills</a>
-    <a class="cta" href="#contact">Let's Talk</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container hero-grid">
-    <div class="eyebrow"><span class="dot"></span> Hi, I'm Deem</div>
-    <h1 class="display">I build things that <span class="italic">work .</span></h1>
-    <p class="hero-sub">AI Engineer focused on computer vision and intelligent automation.</p>
-    <div class="hero-meta">
-      <div><span class="k">Focus</span><span class="v">AI / Computer Vision / Full-Stack</span></div>
-      <div><span class="k">Cert</span><span class="v">Azure AI</span></div>
-    </div>
-  </div>
-</header>
-
-<section id="work">
-  <div class="container">
-    <div class="sec-head">
-      <div>
-        <div class="sec-tag">— Selected Work</div>
-        <h2 class="sec-title">Selected <span class="italic">work</span>.</h2>
+      /* ---------- Reveal ---------- */
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="top">
+      <div class="nav-inner">
+        <a class="brand" href="#top"><span class="mark">D</span> deem</a>
+        <div class="navlinks">
+          <a href="#work">Work</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="nav-cta" href="#contact">Let's talk</a>
       </div>
-      <p class="sec-lede">Projects I've built across AI, computer vision, and full-stack development.</p>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <svg
+            class="hero-art"
+            viewBox="0 0 420 260"
+            fill="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0.5" y2="1">
+                <stop offset="0" stop-color="#93c5fd" />
+                <stop offset="1" stop-color="#2563eb" />
+              </linearGradient>
+              <linearGradient id="g2" x1="0.2" y1="0" x2="0.6" y2="1">
+                <stop offset="0" stop-color="#60a5fa" />
+                <stop offset="1" stop-color="#1e3a8a" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0 260 L118 96 L196 198 L250 140 L360 260 Z"
+              fill="url(#g1)"
+              opacity=".75"
+            />
+            <path
+              d="M150 260 L268 70 L330 152 L372 112 L420 260 Z"
+              fill="url(#g2)"
+            />
+          </svg>
+
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="dot"></span> Hi, I'm Deem</div>
+            <h1 class="display">I build things<em>that actually work.</em></h1>
+            <p class="hero-sub">
+              AI Engineer specializing in computer vision, machine learning, and
+              intelligent AI applications, from lightweight models running on
+              edge devices to AI agents that automate real workflows.
+            </p>
+            <div class="hero-actions">
+              <a class="btn-outline" href="#work"
+                >View my work <span aria-hidden="true">&rarr;</span></a
+              >
+              <a
+                class="btn-ghost"
+                href="https://huggingface.co/spaces/deem-kh/saudi-anpr-demo"
+                target="_blank"
+                rel="noopener"
+                >Live ANPR demo <span aria-hidden="true">&#8599;</span></a
+              >
+            </div>
+          </div>
+
+          <div class="hero-logos">
+            <span>Computer Vision</span><span>YOLO</span><span>OCR</span
+            ><span>Lightweight</span><span>PyTorch</span><span>AI Agents</span>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <button class="side-card dark" data-project="p2">
+            <div class="titlerow">
+              <h3>Saudi ANPR</h3>
+              <span class="badge">Live demo</span>
+            </div>
+            <p>
+              Lightweight Arabic/Latin plate recognition built for edge
+              hardware.
+            </p>
+            <div class="side-foot">
+              <span class="mini-btn"
+                >View case <span aria-hidden="true">&rarr;</span></span
+              >
+              <span class="side-tag">Featured</span>
+            </div>
+          </button>
+
+          <button class="side-card soft" data-project="p3">
+            <h3>WhatsApp AI Agents</h3>
+            <p>RAG-grounded automation for real estate and customer support.</p>
+            <div class="side-foot">
+              <span class="mini-btn"
+                >View case <span aria-hidden="true">&rarr;</span></span
+              >
+              <span class="side-tag">Azure AI Certified</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section id="work">
+      <div class="container">
+        <div class="sec-head">
+          <div>
+            <div class="sec-tag">Selected work</div>
+            <h2 class="sec-title">AI systems I've built end to end.</h2>
+          </div>
+          <p class="sec-lede">
+            Applied AI and computer vision, taken from dataset to deployed
+            system each one shipped, not shelved.
+          </p>
+        </div>
+
+        <div class="work-list">
+          <button class="work reveal" data-project="p2">
+            <div class="num">01</div>
+            <div>
+              <div class="titlerow">
+                <h3>Saudi ANPR</h3>
+                <span class="badge">Live demo</span>
+              </div>
+              <p>
+                Saudi plate recognition running on a Raspberry Pi custom YOLO
+                detector plus a fine-tuned OCR model.
+              </p>
+              <div class="stack">
+                <span>YOLO</span><span>FastPlateOCR</span
+                ><span>Raspberry Pi</span><span>Edge Deployment</span>
+              </div>
+            </div>
+            <span class="open">View case</span>
+          </button>
+
+          <button class="work reveal" data-project="p4">
+            <div class="num">02</div>
+            <div>
+              <div class="titlerow">
+                <h3>Luma</h3>
+                <span class="badge alt">Research &middot; KAUST Academy</span>
+              </div>
+              <p>
+                Self-supervised lighting estimation from indoor photos a
+                teacher&ndash;student framework that recovers illumination and
+                materials.
+              </p>
+              <div class="stack">
+                <span>NeILF</span><span>Teacher&ndash;Student</span
+                ><span>Differentiable Rendering</span
+                ><span>Multi-view Fusion</span>
+              </div>
+            </div>
+            <span class="open">View case</span>
+          </button>
+
+          <button class="work reveal" data-project="p3">
+            <div class="num">03</div>
+            <div>
+              <h3>WhatsApp AI Agents</h3>
+              <p>
+                RAG-grounded automation inside WhatsApp one agent for real
+                estate, one for support.
+              </p>
+              <div class="stack">
+                <span>Automation</span><span>RAG</span><span>OpenAI</span
+                ><span>Vector Embeddings</span>
+              </div>
+            </div>
+            <span class="open">View case</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal-bg" data-close></div>
+      <div class="modal-card">
+        <button class="modal-close" data-close aria-label="Close">
+          &times;
+        </button>
+        <div class="num" id="m-num"></div>
+        <h3 id="modal-title"></h3>
+        <p class="lede" id="m-lede"></p>
+        <div class="stack" id="m-stack"></div>
+        <div class="modal-links" id="m-links"></div>
+        <div class="psbr" id="m-psbr"></div>
+      </div>
     </div>
 
-    <div class="work-list">
-
-      <button class="work reveal" data-project="p2">
-        <div class="num">01</div>
-        <div>
-          <h3>Saudi ANPR</h3>
-          <p style="color:var(--ink-dim);max-width:680px">A lightweight Saudi license plate recognition system built for edge deployment using a custom YOLO detector and fine-tuned OCR model.</p>
-          <div class="stack"><span>YOLO</span><span>FastPlateOCR</span><span>Raspberry Pi</span><span>Edge Deployment</span></div>
-        </div>
-        <span class="open">View case</span>
-      </button>
-
-      <button class="work reveal" data-project="p3">
-        <div class="num">02</div>
-        <div>
-          <h3>WhatsApp AI Agents</h3>
-          <p style="color:var(--ink-dim);max-width:680px">Case study coming soon.</p>
-          <div class="stack"><span>Automation</span><span>RAG</span><span>OpenAI</span><span>Vector Embeddings</span></div>
-        </div>
-        <span class="open">View case</span>
-      </button>
-
-      <button class="work reveal" data-project="p1">
-        <div class="num">03</div>
-        <div>
-          <h3>Interactive Indoor Map</h3>
-          <p style="color:var(--ink-dim);max-width:680px">Case study coming soon.</p>
-          <div class="stack"><span>Node.js</span><span>Three.js</span><span>Firebase</span></div>
-        </div>
-        <span class="open">View case</span>
-      </button>
-
-    </div>
-  </div>
-</section>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal-bg" data-close></div>
-  <div class="modal-card">
-    <button class="modal-close" data-close aria-label="Close">×</button>
-    <div class="num" id="m-num"></div>
-    <h3 id="modal-title"></h3>
-    <p class="lede" id="m-lede"></p>
-    <div class="stack" id="m-stack"></div>
-    <div class="psbr">
-      <div class="block"><div class="label">Problem</div><p id="m-problem"></p></div>
-      <div class="block"><div class="label">Solution</div><p id="m-solution"></p></div>
-      <div class="block"><div class="label">Benefits</div><p id="m-benefits"></p></div>
-      <div class="block"><div class="label">Results</div><p class="results" id="m-results"></p></div>
-    </div>
-  </div>
-</div>
-
+    <!-- Posters section hidden for now - poster PNG needs a cleaner render.
 <section id="posters">
   <div class="container">
     <div class="sec-head">
       <div>
-        <div class="sec-tag">— Posters</div>
-        <h2 class="sec-title">Research, <span class="italic">on paper</span>.</h2>
+        <div class="sec-tag">Posters</div>
+        <h2 class="sec-title">Research, on paper.</h2>
       </div>
       <p class="sec-lede">Selected academic posters. Click through for the full PDF.</p>
     </div>
     <div class="poster-grid">
       <a class="poster reveal" href="assets/fyp-poster.pdf" target="_blank" rel="noopener">
-        <div class="tag">FYP · 2026</div>
-        <h4>Lightweight AI Model for Plate Recognition — YOLO + OCR</h4>
-        <span class="view">View full poster (PDF)</span>
+        <div class="shot"><img src="assets/fyp-poster-thumb.png" alt="Poster: Traffic Violation Detection System Using Drone" loading="lazy"></div>
+        <div class="body">
+          <span class="tag">FYP &middot; 2026</span>
+          <h4>Lightweight AI Model for Plate Recognition &mdash; YOLO + OCR</h4>
+          <span class="view">View full poster (PDF)</span>
+        </div>
       </a>
       <div class="poster placeholder reveal">
-        <div class="tag">Coming Soon</div>
-        <h4>Next poster</h4>
-        <span class="view" style="opacity:.6">Reserved</span>
+        <div class="shot"></div>
+        <div class="body">
+          <span class="tag">Coming soon</span>
+          <h4>Next poster</h4>
+          <span class="view">Reserved</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
+-->
 
-<section id="skills">
-  <div class="container">
-    <div class="sec-head">
-      <div>
-        <div class="sec-tag">— Skills</div>
-        <h2 class="sec-title">What I <span class="italic">work with</span>.</h2>
+    <section id="skills">
+      <div class="container">
+        <div class="sec-head">
+          <div>
+            <div class="sec-tag">Skills</div>
+            <h2 class="sec-title">What I work with.</h2>
+          </div>
+        </div>
+        <div class="skills">
+          <div class="skill-col reveal">
+            <h5>AI &amp; ML</h5>
+            <ul>
+              <li>RAG Architecture</li>
+              <li>YOLO Object Detection</li>
+              <li>OCR Fine-tuning</li>
+              <li>Image Segmentation</li>
+              <li>Transfer Learning</li>
+              <li>Model Evaluation</li>
+            </ul>
+          </div>
+          <div class="skill-col reveal">
+            <h5>Deployment</h5>
+            <ul>
+              <li>Edge Inference (Raspberry Pi)</li>
+              <li>Model Optimization</li>
+              <li>Python</li>
+              <li>Django</li>
+              <li>Workflow Automation</li>
+            </ul>
+          </div>
+          <div class="skill-col reveal">
+            <h5>Cloud &amp; Tools</h5>
+            <ul>
+              <li>Azure AI (Certified)</li>
+              <li>Vector Embeddings</li>
+              <li>Hugging Face Spaces</li>
+              <li>Git</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="skills">
-      <div class="skill-col reveal">
-        <h5>AI & ML</h5>
-        <ul>
-          <li>RAG Architecture</li>
-          <li>YOLO Object Detection</li>
-          <li>OCR Fine-tuning</li>
-          <li>Image Segmentation</li>
-          <li>Transfer Learning</li>
-          <li>Automation</li>
-        </ul>
+    </section>
+
+    <section id="contact" style="padding-bottom: 0">
+      <div class="container">
+        <div class="contact-card reveal">
+          <div>
+            <div class="big">Got a problem<br />worth solving?</div>
+            <p class="lede">
+              Open to AI engineering roles, internships, and collaborations. The
+              fastest way to reach me is email.
+            </p>
+          </div>
+          <div class="actions">
+            <a class="btn-white" href="mailto:deemkhaled33@gmail.com"
+              >deemkhaled33@gmail.com</a
+            >
+          </div>
+        </div>
       </div>
-      <div class="skill-col reveal">
-        <h5>Development</h5>
-        <ul>
-          <li>Python</li>
-          <li>Django</li>
-          <li>Node.js</li>
-          <li>Three.js</li>
-        </ul>
+    </section>
+
+    <footer>
+      <div class="container foot">
+        <div>&copy; <span id="y"></span> Deem &middot; Built from scratch</div>
+        <div>AI &middot; Computer Vision &middot; Automation</div>
       </div>
-      <div class="skill-col reveal">
-        <h5>Cloud & Tools</h5>
-        <ul>
-          <li>Azure AI (Certified)</li>
-          <li>Vector Embeddings</li>
-          <li>Git</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+    </footer>
 
-<footer id="contact">
-  <div class="container foot">
-    <div>
-      <div class="sec-tag" style="margin-bottom:18px">— Let's Talk</div>
-      <div class="big">Got a <span class="italic">problem</span><br/>worth solving?</div>
-      <a class="mail" href="mailto:deemkhaled33@gmail.com" style="margin-top:28px;display:inline-block">deemkhaled33@gmail.com</a>
-    </div>
-    <div class="meta">© <span id="y"></span> Deem · Built from scratch</div>
-  </div>
-</footer>
+    <script>
+      document.getElementById("y").textContent = new Date().getFullYear();
 
-<script>
-  document.getElementById('y').textContent = new Date().getFullYear();
-  const io = new IntersectionObserver((es)=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => e.isIntersecting && e.target.classList.add("in")),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-  const projects = {
-    p1: {
-      num:'03', title:'Interactive Indoor Map',
-      lede:'A live, searchable 3D map for my college that replaces paper signage with an event-driven layer.',
-      stack:['Node.js','Three.js','Firebase'],
-      problem:'Universities still rely on paper notices for room changes and exam relocations — easy to miss, no way to search by activity.',
-      solution:'A live 3D indoor map with an event layer; pin updates go live instantly, searchable by activity name.',
-      benefits:'No more hunting for signs or memorizing rooms. Less wall clutter. Updates ship in seconds.',
-      results:'Live and deployed at college. MVP shipped — access control & UI refresh next.'
-    },
-    p2: {
-      num:'01', title:'Saudi ANPR',
-      lede:'A lightweight Saudi license plate recognition system built for edge deployment using a custom YOLO detector and fine-tuned OCR model.',
-      stack:['YOLO','FastPlateOCR','Raspberry Pi','Edge Deployment'],
-      problem:'Edge devices like a Raspberry Pi have no GPU and limited compute — but accurate plate detection and recognition still has to run on them. Most detection and OCR models are too heavy for hardware like this.',
-      solution:'A lightweight two-stage pipeline — YOLO-based plate detection/segmentation and a fine-tuned FastPlateOCR model for dual-script Arabic/Latin recognition — built and optimized to run directly on a Raspberry Pi 4, with results synced to Edge Deployment.',
-      benefits:'Runs on affordable, lightweight edge hardware instead of requiring a GPU or dedicated server. Built specifically for Saudi plates rather than relying on generic ANPR models that don\u2019t handle Arabic script.',
-      results:'95% character / 84% full-plate OCR accuracy. Detection P/R above 95%. Labeling pipeline scaled 500 → 4,000+ images. Demo link coming soon.'
-    },
-    p3: {
-      num:'02', title:'WhatsApp AI Agents',
-      lede:'Case study coming soon.',
-      stack:['Automation','RAG','OpenAI','Vector Embeddings'],
-      problem:"Repetitive inbound queries don't scale manually, and most chatbots aren't grounded in the business's actual data.",
-      solution:'Workflow automation + RAG pipelines integrated into WhatsApp — one for real estate listings, one for customer support.',
-      benefits:'No new app to learn. RAG grounding pulls from listing and company-specific data instead of generic guesses. Architecture reused across two domains.',
-      results:'Real estate agent shipped during Qassim Tech internship; customer-support agent extended the same approach.'
-    }
-  };
+      /* active nav link on scroll */
+      const links = [...document.querySelectorAll(".navlinks a")];
+      const spy = new IntersectionObserver(
+        (es) => {
+          es.forEach((e) => {
+            if (!e.isIntersecting) return;
+            links.forEach((l) =>
+              l.classList.toggle(
+                "active",
+                l.getAttribute("href") === "#" + e.target.id,
+              ),
+            );
+          });
+        },
+        { rootMargin: "-45% 0px -50% 0px" },
+      );
+      ["work", "skills", "contact"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) spy.observe(el);
+      });
 
-  const modal = document.getElementById('modal');
-  function openProject(id){
-    const p = projects[id]; if(!p) return;
-    document.getElementById('m-num').textContent = p.num;
-    document.getElementById('modal-title').textContent = p.title;
-    document.getElementById('m-lede').textContent = p.lede;
-    document.getElementById('m-stack').innerHTML = p.stack.map(s=>`<span>${s}</span>`).join('');
-    document.getElementById('m-problem').textContent = p.problem;
-    document.getElementById('m-solution').textContent = p.solution;
-    document.getElementById('m-benefits').textContent = p.benefits;
-    document.getElementById('m-results').textContent = p.results;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
-  document.querySelectorAll('[data-project]').forEach(btn=>{
-    btn.addEventListener('click',()=>openProject(btn.dataset.project));
-  });
-  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeModal));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-</script>
-</body>
+      const projects = {
+        p2: {
+          num: "01",
+          title: "Saudi ANPR",
+          lede: "Saudi license plate recognition built for edge deployment  a custom YOLO detector and a fine-tuned OCR model on a Raspberry Pi.",
+          stack: ["YOLO", "FastPlateOCR", "Raspberry Pi", "Edge Deployment"],
+          problem:
+            "A Raspberry Pi has no GPU, but detection and OCR still have to run on it. Most models are far too heavy for that hardware.",
+          solution:
+            "A two-stage pipeline: YOLO plate detection and segmentation, then a fine-tuned FastPlateOCR model for dual-script Arabic/Latin plates, optimized for a Pi 4.",
+          benefits:
+            "Runs on cheap edge hardware instead of a GPU server, and reads Saudi plates that generic ANPR models miss.",
+          results:
+            "95% character and 84% full-plate accuracy, detection P/R above 95%. Dataset scaled 500 \u2192 4,000+ images.",
+          links: [
+            {
+              label: "Try the live demo \u2197",
+              href: "https://huggingface.co/spaces/deem-kh/saudi-anpr-demo",
+            },
+          ],
+        },
+        p4: {
+          num: "02",
+          title: "Luma",
+          lede: "Self-supervised realistic lighting estimation from real indoor images. KAUST Academy research",
+          stack: [
+            "NeILF",
+            "Teacher\u2013Student",
+            "Differentiable Rendering",
+            "Multi-view Fusion",
+          ],
+          problem:
+            "Design software overestimates indoor lighting, so renders come out unrealistically bright. Recovering real lighting from photos is ambiguous  one pixel has many color-and-light explanations  and real rooms have no ground truth.",
+          solution:
+            "A physically-grounded teacher\u2013student framework. A NeILF teacher optimizes multi-view-consistent illumination per scene; a feed-forward student predicts global and local light fields plus emitters in a single pass, kept honest by differentiable rendering.",
+          benefits:
+            "Lighting and materials are estimated straight from room photographs  true-to-life visualization before construction, with no ground-truth labels and no per-scene optimization.",
+          resultsImage: {
+            src: "assets/Luma-Results.png",
+            alt: "Same indoor scene rendered four ways: original image, fixed material, NeILF lighting and Luma lighting",
+            legend: [
+              [
+                "Original Image",
+                "The real photo. The surface and lighting are mixed together, so the model has to figure out what comes from where.",
+              ],
+              [
+                "Fixed Material",
+                "The room's materials stay the same, but the real lighting is removed. Everything is placed under a simple white light, creating a clean starting point.",
+              ],
+              [
+                "NeILF Lighting",
+                "The lighting is put back using NeILF, an accurate but slow \u201cteacher\u201d model. It carefully figures out the lighting for this specific room.",
+              ],
+              [
+                "Luma Lighting",
+                "Luma learns from the teacher and does the same job much faster. Instead of solving the lighting from scratch every time, it predicts it in a single pass  even for rooms it has never seen before.",
+              ],
+            ],
+          },
+        },
+        p3: {
+          num: "03",
+          title: "WhatsApp AI Agents",
+          lede: "RAG-grounded automation inside WhatsApp  one agent for real estate listings, one for customer support.",
+          stack: ["Automation", "RAG", "OpenAI", "Vector Embeddings"],
+          problem:
+            "Repetitive inbound queries don't scale manually, and most chatbots aren't grounded in the business's own data.",
+          solution:
+            "Automation workflows plus RAG pipelines inside WhatsApp, with the same architecture reused across both domains.",
+          benefits:
+            "No new app to learn, and answers come from real listing and company data instead of generic guesses.",
+          results:
+            "Real estate agent shipped during the Qassim Tech internship; the support agent extended the same approach.",
+        },
+      };
+
+      const modal = document.getElementById("modal");
+      let lastFocused = null;
+
+      function openProject(id) {
+        const p = projects[id];
+        if (!p) return;
+        lastFocused = document.activeElement;
+        document.getElementById("m-num").textContent = p.num;
+        document.getElementById("modal-title").textContent = p.title;
+        document.getElementById("m-lede").textContent = p.lede;
+        document.getElementById("m-stack").innerHTML = p.stack
+          .map((s) => "<span>" + s + "</span>")
+          .join("");
+        document.getElementById("m-links").innerHTML = (p.links || [])
+          .map(
+            (l) =>
+              '<a href="' +
+              l.href +
+              '" target="_blank" rel="noopener">' +
+              l.label +
+              "</a>",
+          )
+          .join("");
+        const blocks = [
+          ["Problem", p.problem, ""],
+          ["Solution", p.solution, ""],
+          ["Benefits", p.benefits, ""],
+          ["Results", p.results, "accent"],
+        ].filter((b) => b[1]);
+        if (p.resultsImage) blocks.push(["Results", p.resultsImage, "media"]);
+
+        const psbr = document.getElementById("m-psbr");
+        const textCount = blocks.filter((b) => b[2] !== "media").length;
+        psbr.innerHTML = blocks
+          .map((b, i) => {
+            const wide =
+              b[2] === "media" || (textCount % 2 === 1 && i === textCount - 1);
+            return (
+              '<div class="block ' +
+              b[2] +
+              (wide ? " wide" : "") +
+              '"><div class="label">' +
+              b[0] +
+              "</div>" +
+              (b[2] === "media"
+                ? '<figure><img><figcaption></figcaption><div class="legend"></div></figure>'
+                : "<p></p>") +
+              "</div>"
+            );
+          })
+          .join("");
+
+        blocks.forEach((b, i) => {
+          const el = psbr.children[i];
+          if (b[2] === "media") {
+            const img = el.querySelector("img");
+            img.src = b[1].src;
+            img.alt = b[1].alt || "";
+            img.loading = "lazy";
+            const cap = el.querySelector("figcaption");
+            cap.textContent = b[1].caption || "";
+            cap.hidden = !b[1].caption;
+            const legend = el.querySelector(".legend");
+            legend.hidden = !b[1].legend;
+            (b[1].legend || []).forEach(([term, text]) => {
+              const item = document.createElement("div");
+              const name = document.createElement("b");
+              name.textContent = term;
+              item.appendChild(name);
+              item.appendChild(document.createTextNode(text));
+              legend.appendChild(item);
+            });
+          } else {
+            el.querySelector("p").textContent = b[1];
+          }
+        });
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+        modal.querySelector(".modal-close").focus();
+      }
+      function closeModal() {
+        modal.classList.remove("open");
+        document.body.style.overflow = "";
+        if (lastFocused) lastFocused.focus();
+      }
+      document.querySelectorAll("[data-project]").forEach((btn) => {
+        btn.addEventListener("click", () => openProject(btn.dataset.project));
+      });
+      modal
+        .querySelectorAll("[data-close]")
+        .forEach((el) => el.addEventListener("click", closeModal));
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+    </script>
+  </body>
 </html>
