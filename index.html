@@ -608,7 +608,7 @@
         transition: background 0.25s;
       }
       .work .open::after {
-        content: "&rarr;";
+        content: "\2192";
         transition: transform 0.25s;
       }
       .work:hover .open {
@@ -704,7 +704,7 @@
         color: var(--purple);
       }
       .poster .view::after {
-        content: "&rarr;";
+        content: "\2192";
         transition: transform 0.25s;
       }
       .poster:hover .view::after {
@@ -880,6 +880,14 @@
         padding: 32px 0 44px;
         color: var(--muted);
         font-size: 14px;
+      }
+      @media (max-width: 640px) {
+        footer .foot {
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          gap: 10px;
+        }
       }
 
       /* ---------- Modal ---------- */
@@ -1223,7 +1231,7 @@
           </div>
           <p class="sec-lede">
             Applied AI and computer vision, taken from dataset to deployed
-            system each one shipped, not shelved.
+            system &mdash; each one shipped, not shelved.
           </p>
         </div>
 
@@ -1236,8 +1244,8 @@
                 <span class="badge">Live demo</span>
               </div>
               <p>
-                Saudi plate recognition running on a Raspberry Pi custom YOLO
-                detector plus a fine-tuned OCR model.
+                Saudi plate recognition running on a Raspberry Pi &mdash; custom
+                YOLO detector plus a fine-tuned OCR model.
               </p>
               <div class="stack">
                 <span>YOLO</span><span>FastPlateOCR</span
@@ -1255,7 +1263,7 @@
                 <span class="badge alt">Research &middot; KAUST Academy</span>
               </div>
               <p>
-                Self-supervised lighting estimation from indoor photos a
+                Self-supervised lighting estimation from indoor photos &mdash; a
                 teacher&ndash;student framework that recovers illumination and
                 materials.
               </p>
@@ -1273,7 +1281,7 @@
             <div>
               <h3>WhatsApp AI Agents</h3>
               <p>
-                RAG-grounded automation inside WhatsApp one agent for real
+                RAG-grounded automation inside WhatsApp &mdash; one agent for real
                 estate, one for support.
               </p>
               <div class="stack">
@@ -1512,7 +1520,7 @@
           benefits:
             "No new app to learn, and answers come from real listing and company data instead of generic guesses.",
           results:
-            "Real estate agent shipped during the Qassim Tech internship; the support agent extended the same approach.",
+            "Real estate agent shipped to production during an internship; the support agent reused the same architecture in a different domain.",
         },
       };
 
