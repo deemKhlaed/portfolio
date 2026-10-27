@@ -9,7 +9,7 @@
     <title>Deem AI & Software Builder</title>
     <meta
       name="description"
-      content="Portfolio of Deem &mdash; AI engineer building computer vision systems (Saudi ANPR), RAG-grounded WhatsApp agents, and self-supervised lighting-estimation research (Luma)."
+      content="Portfolio of Deem, an AI engineer building computer vision systems (Saudi ANPR), RAG-grounded WhatsApp agents, and self-supervised lighting-estimation research (Luma)."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1235,7 +1235,10 @@
           </button>
 
           <button class="side-card soft" data-project="p3">
-            <h3>Conversational AI Agents</h3>
+            <div class="titlerow">
+              <h3>Conversational AI Agents</h3>
+              <span class="badge">Live demo</span>
+            </div>
             <p>AI agents for real customer conversations, in text and voice.</p>
             <div class="side-foot">
               <span class="mini-btn"
@@ -1257,7 +1260,7 @@
           </div>
           <p class="sec-lede">
             Applied AI and computer vision, taken from dataset to deployed
-            system &mdash; each one shipped, not shelved.
+            system. Each one shipped, not shelved.
           </p>
         </div>
 
@@ -1270,8 +1273,8 @@
                 <span class="badge">Live demo</span>
               </div>
               <p>
-                Saudi plate recognition running on a Raspberry Pi &mdash; custom
-                YOLO detector plus a fine-tuned OCR model.
+                Saudi plate recognition running on a Raspberry Pi, using a
+                custom YOLO detector plus a fine-tuned OCR model.
               </p>
               <div class="stack">
                 <span>YOLO</span><span>FastPlateOCR</span
@@ -1289,12 +1292,12 @@
                 <span class="badge alt">Research &middot; KAUST Academy</span>
               </div>
               <p>
-                Self-supervised lighting estimation from indoor photos &mdash; a
-                teacher&ndash;student framework that recovers illumination and
+                Self-supervised lighting estimation from indoor photos, using a
+                teacher-student framework that recovers illumination and
                 materials.
               </p>
               <div class="stack">
-                <span>NeILF</span><span>Teacher&ndash;Student</span
+                <span>NeILF</span><span>Teacher-Student</span
                 ><span>Differentiable Rendering</span
                 ><span>Multi-view Fusion</span>
               </div>
@@ -1305,7 +1308,10 @@
           <button class="work reveal" data-project="p3">
             <div class="num">03</div>
             <div>
-              <h3>Conversational AI Agents</h3>
+              <div class="titlerow">
+                <h3>Conversational AI Agents</h3>
+                <span class="badge">Live demo</span>
+              </div>
               <p>
                 AI agents for real customer conversations, in text and voice: a
                 real estate assistant grounded in listing data, and a
@@ -1361,7 +1367,7 @@
         <div class="shot"><img src="assets/fyp-poster-thumb.png" alt="Poster: Traffic Violation Detection System Using Drone" loading="lazy"></div>
         <div class="body">
           <span class="tag">FYP &middot; 2026</span>
-          <h4>Lightweight AI Model for Plate Recognition &mdash; YOLO + OCR</h4>
+          <h4>Lightweight AI Model for Plate Recognition with YOLO + OCR</h4>
           <span class="view">View full poster (PDF)</span>
         </div>
       </a>
@@ -1482,7 +1488,7 @@
         p2: {
           num: "01",
           title: "Saudi ANPR",
-          lede: "Saudi license plate recognition built for edge deployment  a custom YOLO detector and a fine-tuned OCR model on a Raspberry Pi.",
+          lede: "Saudi license plate recognition built for edge deployment, using a custom YOLO detector and a fine-tuned OCR model on a Raspberry Pi.",
           stack: ["YOLO", "FastPlateOCR", "Raspberry Pi", "Edge Deployment"],
           problem:
             "A Raspberry Pi has no GPU, but detection and OCR still have to run on it. Most models are far too heavy for that hardware.",
@@ -1505,16 +1511,16 @@
           lede: "Self-supervised realistic lighting estimation from real indoor images. KAUST Academy research",
           stack: [
             "NeILF",
-            "Teacher\u2013Student",
+            "Teacher-Student",
             "Differentiable Rendering",
             "Multi-view Fusion",
           ],
           problem:
-            "Design software overestimates indoor lighting, so renders come out unrealistically bright. Recovering real lighting from photos is ambiguous  one pixel has many color-and-light explanations  and real rooms have no ground truth.",
+            "Design software overestimates indoor lighting, so renders come out unrealistically bright. Recovering real lighting from photos is ambiguous, because one pixel has many color-and-light explanations, and real rooms have no ground truth.",
           solution:
-            "A physically-grounded teacher\u2013student framework. A NeILF teacher optimizes multi-view-consistent illumination per scene; a feed-forward student predicts global and local light fields plus emitters in a single pass, kept honest by differentiable rendering.",
+            "A physically-grounded teacher-student framework. A NeILF teacher optimizes multi-view-consistent illumination per scene; a feed-forward student predicts global and local light fields plus emitters in a single pass, kept honest by differentiable rendering.",
           benefits:
-            "Lighting and materials are estimated straight from room photographs  true-to-life visualization before construction, with no ground-truth labels and no per-scene optimization.",
+            "Lighting and materials are estimated straight from room photographs, giving true-to-life visualization before construction, with no ground-truth labels and no per-scene optimization.",
           resultsImage: {
             src: "assets/Luma-Results.png",
             alt: "Same indoor scene rendered four ways: original image, fixed material, NeILF lighting and Luma lighting",
@@ -1533,7 +1539,7 @@
               ],
               [
                 "Luma Lighting",
-                "Luma learns from the teacher and does the same job much faster. Instead of solving the lighting from scratch every time, it predicts it in a single pass  even for rooms it has never seen before.",
+                "Luma learns from the teacher and does the same job much faster. Instead of solving the lighting from scratch every time, it predicts it in a single pass, even for rooms it has never seen before.",
               ],
             ],
           },
@@ -1561,8 +1567,8 @@
           benefits:
             "Answers come from real business data instead of generic guesses, in text or voice, in natural Saudi dialect.",
           results: [
-            "Real estate assistant: shipped to production on WhatsApp during an internship, and the same architecture was reused for customer support. A live demo runs on Hugging Face Spaces.",
-            "Voice agent: built for an AI Agent Engineer assessment, now a live public demo. Testing exposed speech-recognition errors on Saudi speech, which lead into my next project: fine-tuning Whisper on Saudi data.",
+            "Real estate assistant: responds to client inquiries on WhatsApp.",
+            "Voice agent: holds natural spoken conversations with people.",
           ],
           linksBelow: true,
           links: [
