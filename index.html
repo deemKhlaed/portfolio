@@ -1084,10 +1084,36 @@
         font-weight: 600;
         margin-bottom: 10px;
       }
-      .psbr p {
+      .psbr p,
+      .psbr ul {
         color: var(--ink-2);
         font-size: 15px;
         line-height: 1.62;
+      }
+      .psbr ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .psbr li + li {
+        margin-top: 8px;
+      }
+      .modal-links.below {
+        margin: 24px 0 0;
+        align-items: flex-start;
+      }
+      .modal-links.below:empty {
+        display: none;
+      }
+      .modal-links .link-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .modal-links .link-note {
+        font-size: 12.5px;
+        color: var(--muted);
+        padding-left: 4px;
       }
       @media (max-width: 760px) {
         .modal-card {
@@ -1209,8 +1235,8 @@
           </button>
 
           <button class="side-card soft" data-project="p3">
-            <h3>WhatsApp AI Agents</h3>
-            <p>RAG-grounded automation for real estate and customer support.</p>
+            <h3>Conversational AI Agents</h3>
+            <p>AI agents for real customer conversations, in text and voice.</p>
             <div class="side-foot">
               <span class="mini-btn"
                 >View case <span aria-hidden="true">&rarr;</span></span
@@ -1279,14 +1305,17 @@
           <button class="work reveal" data-project="p3">
             <div class="num">03</div>
             <div>
-              <h3>WhatsApp AI Agents</h3>
+              <h3>Conversational AI Agents</h3>
               <p>
-                RAG-grounded automation inside WhatsApp &mdash; one agent for real
-                estate, one for support.
+                AI agents for real customer conversations, in text and voice: a
+                real estate assistant grounded in listing data, and a
+                car-accident voice agent in Saudi dialect.
               </p>
               <div class="stack">
-                <span>Automation</span><span>RAG</span><span>OpenAI</span
-                ><span>Vector Embeddings</span>
+                <span>RAG</span><span>Vector Database</span><span>OpenAI</span
+                ><span>Automation</span><span>Voice AI</span
+                ><span>ElevenLabs</span><span>Hugging Face</span
+                ><span>Arabic NLP</span>
               </div>
             </div>
             <span class="open">View case</span>
@@ -1313,6 +1342,7 @@
         <div class="stack" id="m-stack"></div>
         <div class="modal-links" id="m-links"></div>
         <div class="psbr" id="m-psbr"></div>
+        <div class="modal-links below" id="m-links-below"></div>
       </div>
     </div>
 
@@ -1510,17 +1540,42 @@
         },
         p3: {
           num: "03",
-          title: "WhatsApp AI Agents",
-          lede: "RAG-grounded automation inside WhatsApp  one agent for real estate listings, one for customer support.",
-          stack: ["Automation", "RAG", "OpenAI", "Vector Embeddings"],
+          title: "Conversational AI Agents",
+          lede: "AI agents for real customer conversations, in text and voice: a real estate assistant grounded in listing data, and a car-accident voice agent in Saudi dialect.",
+          stack: [
+            "RAG",
+            "Vector Database",
+            "OpenAI",
+            "Automation",
+            "Voice AI",
+            "ElevenLabs",
+            "Hugging Face",
+            "Arabic NLP",
+          ],
           problem:
-            "Repetitive inbound queries don't scale manually, and most chatbots aren't grounded in the business's own data.",
-          solution:
-            "Automation workflows plus RAG pipelines inside WhatsApp, with the same architecture reused across both domains.",
+            "Repetitive customer questions don't scale manually, and most bots aren't grounded in the business's own data. On voice it's harder still: callers are often stressed, speak Saudi dialect, and need safe, accurate guidance.",
+          solution: [
+            "Real estate assistant: a RAG pipeline over a vector database of listings, so answers come from real listing data.",
+            "Voice agent: a Saudi-dialect agent that works out the call type, puts safety first, and answers only from a knowledge base built from Najm's FAQ, handing over to a human when needed.",
+          ],
           benefits:
-            "No new app to learn, and answers come from real listing and company data instead of generic guesses.",
-          results:
-            "Real estate agent shipped to production during an internship; the support agent reused the same architecture in a different domain.",
+            "Answers come from real business data instead of generic guesses, in text or voice, in natural Saudi dialect.",
+          results: [
+            "Real estate assistant: shipped to production on WhatsApp during an internship, and the same architecture was reused for customer support. A live demo runs on Hugging Face Spaces.",
+            "Voice agent: built for an AI Agent Engineer assessment, now a live public demo. Testing exposed speech-recognition errors on Saudi speech, which lead into my next project: fine-tuning Whisper on Saudi data.",
+          ],
+          linksBelow: true,
+          links: [
+            {
+              label: "Real estate demo \u2197",
+              href: "https://huggingface.co/spaces/deem-kh/real-state-agent",
+            },
+            {
+              label: "Voice demo \u2197",
+              href: "https://elevenlabs.io/app/talk-to?agent_id=agent_3601k2v169z1f7qr7876967r8eap",
+              note: "Unofficial demo. Not affiliated with Najm.",
+            },
+          ],
         },
       };
 
@@ -1537,16 +1592,29 @@
         document.getElementById("m-stack").innerHTML = p.stack
           .map((s) => "<span>" + s + "</span>")
           .join("");
-        document.getElementById("m-links").innerHTML = (p.links || [])
-          .map(
-            (l) =>
+        const linksHtml = (p.links || [])
+          .map((l) => {
+            const a =
               '<a href="' +
               l.href +
-              '" target="_blank" rel="noopener">' +
+              '" target="_blank" rel="noopener noreferrer">' +
               l.label +
-              "</a>",
-          )
+              "</a>";
+            return l.note
+              ? '<div class="link-item">' +
+                  a +
+                  '<small class="link-note">' +
+                  l.note +
+                  "</small></div>"
+              : a;
+          })
           .join("");
+        document.getElementById("m-links").innerHTML = p.linksBelow
+          ? ""
+          : linksHtml;
+        document.getElementById("m-links-below").innerHTML = p.linksBelow
+          ? linksHtml
+          : "";
         const blocks = [
           ["Problem", p.problem, ""],
           ["Solution", p.solution, ""],
@@ -1570,7 +1638,9 @@
               "</div>" +
               (b[2] === "media"
                 ? '<figure><img><figcaption></figcaption><div class="legend"></div></figure>'
-                : "<p></p>") +
+                : Array.isArray(b[1])
+                  ? "<ul></ul>"
+                  : "<p></p>") +
               "</div>"
             );
           })
@@ -1595,6 +1665,13 @@
               item.appendChild(name);
               item.appendChild(document.createTextNode(text));
               legend.appendChild(item);
+            });
+          } else if (Array.isArray(b[1])) {
+            const ul = el.querySelector("ul");
+            b[1].forEach((t) => {
+              const li = document.createElement("li");
+              li.textContent = t;
+              ul.appendChild(li);
             });
           } else {
             el.querySelector("p").textContent = b[1];
